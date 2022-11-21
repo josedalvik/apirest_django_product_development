@@ -5,9 +5,6 @@
 <b>Carnet 22000570</b><br/>
 <b>20 de octubre 2022</b><br/>
 <br/>
-<b>Publicación del modelo en sitio web</b><br/>
-<br/>
-<br/>
 <b>Instrucciones de instalación</b><br/>
 <br/>
 <br/>
