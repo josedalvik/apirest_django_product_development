@@ -11,7 +11,7 @@
 Enlace: http://ec2-3-142-222-159.us-east-2.compute.amazonaws.com<br/>
 <br/>
 <br/>
-<b>Instrucciones de instalación</br/>
+<b>Instrucciones de instalación<br/>
 <br/>
 <br/>
 sudo apt update<br/>
