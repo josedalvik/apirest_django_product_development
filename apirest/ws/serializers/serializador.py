@@ -25,17 +25,29 @@ class prediccion(serializers.Serializer):
     fecha_actualizacion = serializers.DateTimeField(required=False, format=None, input_formats=['iso-8601', "%Y-%m-%d %H:%M:%S"])  
     def create(self, validated_data):
         validated_data["fecha_creacion"] = datetime.now()
-        jsond = JSONRenderer().render(validated_data)
-        prediccion = tf.predict(jsond)
-        print("prediccion realizada", prediccion["resultado"])
-        if( prediccion["resultado"] == "ok" ):
-            print("ok")
-            registro = Prediccion.objects.create(**validated_data)
-            registro.galaxy = prediccion["galaxy"]
-            registro.qso = prediccion["qso"]
-            registro.star = prediccion["star"]
-            registro.save()
-            prediccion["id"] = registro.id
+        #Validando si existe
+        prediccion = {}
+        try:
+            #Existe
+            existe = Prediccion.objects.get(alpha=validated_data["alpha"], delta=validated_data["delta"],  u=validated_data["u"], g=validated_data["g"], r=validated_data["r"], i=validated_data["i"], z=validated_data["z"], redshift=validated_data["redshift"])
+            prediccion["galaxy"] = existe.galaxy
+            prediccion["qso"] = existe.qso
+            prediccion["star"] = existe.star
+            prediccion["id"] = existe.id
+            prediccion["resultado"] = "ok"
+        except Prediccion.DoesNotExist:
+            #No existe
+            jsond = JSONRenderer().render(validated_data)
+            prediccion = tf.predict(jsond)
+            print("prediccion realizada", prediccion["resultado"])
+            if( prediccion["resultado"] == "ok" ):
+                print("ok")
+                registro = Prediccion.objects.create(**validated_data)
+                registro.galaxy = prediccion["galaxy"]
+                registro.qso = prediccion["qso"]
+                registro.star = prediccion["star"]
+                registro.save()
+                prediccion["id"] = registro.id
         return prediccion
 
 class retroalimentacion(serializers.Serializer):

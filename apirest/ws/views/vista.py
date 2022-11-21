@@ -14,9 +14,10 @@ import pandas as pd
 def index(request):
     if request.method == 'GET':
         module_dir = os.path.dirname(__file__)  
-        xdemo = pd.read_csv(os.path.join(module_dir, '../library/files/X_demo.csv')).reset_index(drop=True)[0:10].to_dict(orient="records")
-        ydemo = pd.read_csv(os.path.join(module_dir, '../library/files/y_demo.csv')).reset_index(drop=True)[0:10].to_json(orient="records")
-        params = {"xdemo": xdemo, "ydemo": ydemo, "cantidad": 100}
+        cantidad = 100
+        xdemo = pd.read_csv(os.path.join(module_dir, '../library/files/X_demo.csv')).reset_index(drop=True)[0:cantidad].to_dict(orient="records")
+        ydemo = pd.read_csv(os.path.join(module_dir, '../library/files/y_demo.csv')).reset_index(drop=True)[0:cantidad].to_json(orient="records")
+        params = {"xdemo": xdemo, "ydemo": ydemo, "url": request.build_absolute_uri('/')}
         return render(request,"index.html",params)
 
 @api_view(['POST'])

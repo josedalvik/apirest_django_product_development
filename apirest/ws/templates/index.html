@@ -11,6 +11,9 @@
 			.resultado{
 				display: none;
 			}
+			html {
+				scroll-behavior: smooth;
+			}
 		</style>
 	</head>
 	<body>
@@ -61,7 +64,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="col-4 col-md-4">
+					<div class="col-4 col-md-4" id="resultados_prediccion">
 						<h3>Resultados de la predicción</h3>
 						<div class="analizando">Por favor realiza una prediccion</div>
 						<div class="resultado">
@@ -89,6 +92,7 @@
 								<table class="table table-sm">
 									<thead>
 										<tr>
+											<th scope="col">id</th>
 											<th scope="col">galaxy</th>
 											<th scope="col">qso</th>
 											<th scope="col">star</th>
@@ -96,6 +100,7 @@
 									</thead>
 									<tbody>
 										<tr class="valores_prediccion">
+											<td class="id"></th>
 											<td class="galaxy"></th>
 											<td class="qso"></td>
 											<td class="star"></td>
@@ -103,12 +108,175 @@
 									</tbody>
 								</table>
 							</div>
+							<h3>Enviar retroalimentación</h3>
+							<p>Puedes enviar el valor correcto de la predicción actual con el siguiente formulario:</p>
+							<div class="form-group row mb-3 mt-3">
+								<label class="col-sm-5 col-form-label">Id</label>
+								<div class="col-sm-7">
+									<input class="form-control" type="numeric" name="id" readonly value="" />
+								</div>
+							</div>
+							<div class="form-group row mb-3">
+								<label class="col-sm-5 col-form-label">Valor correcto</label>
+								<div class="col-sm-7">
+									<select class="form-control" name="valor_real">
+										<option value="galaxy" selected>galaxy</option>
+										<option value="star">star</option>
+										<option value="qso">qso</option>
+									</select>
+								</div>
+							</div>
+							<button onclick="retroalimentar();" class="btn btn-sm btn-primary">Retroalimentar</button>
+							<div class="resultado_retroalimentacion"></div>
 						</div>
 					</div>
 					<div class="col-12">
 						<hr/>
-						Jose Pablo Godoy Linares, 22000570
+						Jose Pablo Godoy Linares, 22000570<br/>
+						Ver proyecto Python con Django Framework en Github: <a href="https://github.com/josedalvik/apirest_django_product_development">https://github.com/josedalvik/apirest_django_product_development</a>
+						<br/>
+						<br/>
+					</div>
+					<div class="col-12">
+						<hr/>
+					</div>
+					<div class="w-100"></div>
+					<div class="col-8 offset-md-2" style="text-align: left !important" >
+						<h3>API Rest</h3>
 						
+						<b>Predicción</b>
+						<p>
+							URL: {{url}}prediccion<br/>
+							Método: POST<br/>
+							Formato: application/json
+						</p>
+						<p>Ejemplos:</p>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"alpha": 228.681745943824,<br/>
+							&nbsp;&nbsp;"delta": 49.105410614342,<br/>
+							&nbsp;&nbsp;"u": 19.69391,<br/>
+							&nbsp;&nbsp;"g": 18.91192,<br/>
+							&nbsp;&nbsp;"r": 18.62032,<br/>
+							&nbsp;&nbsp;"i": 18.50371,<br/>
+							&nbsp;&nbsp;"z":18.50985,<br/>
+							&nbsp;&nbsp;"redshift":-0.0005005255000000153<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"galaxy": 0.127686426,<br/>
+							&nbsp;&nbsp;"qso": 0.0026489221,<br/>
+							&nbsp;&nbsp;"star": 0.869664669,<br/>
+							&nbsp;&nbsp;"resultado": "ok",<br/>
+							&nbsp;&nbsp;"id": 1<br/>
+							}
+						</figure>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"alpha": 209.613900743068,<br/>
+							&nbsp;&nbsp;"delta": 1.8117076607371487,<br/>
+							&nbsp;&nbsp;"u": 22.39069,<br/>
+							&nbsp;&nbsp;"g": 21.62746,<br/>
+							&nbsp;&nbsp;"r": 21.59026,<br/>
+							&nbsp;&nbsp;"i": 21.337,<br/>
+							&nbsp;&nbsp;"z": 21.15186,<br/>
+							&nbsp;&nbsp;"redshift": 0.6872433<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"galaxy": 0.9154464006,<br/>
+							&nbsp;&nbsp;"qso": 0.0826168358,<br/>
+							&nbsp;&nbsp;"star": 0.0019367295,<br/>
+							&nbsp;&nbsp;"resultado": "ok",<br/>
+							&nbsp;&nbsp;"id": 2<br/>
+							}
+						</figure>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"alpha": 137.631261078827,<br/>
+							&nbsp;&nbsp;"delta": 29.1545181450529,<br/>
+							&nbsp;&nbsp;"u": 22.42007,<br/>
+							&nbsp;&nbsp;"g": 21.56551,<br/>
+							&nbsp;&nbsp;"r": 20.66458,<br/>
+							&nbsp;&nbsp;"i": 19.84564,<br/>
+							&nbsp;&nbsp;"z": 19.57039,<br/>
+							&nbsp;&nbsp;"redshift": 0.6516591<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"galaxy": 0.9329223037,<br/>
+							&nbsp;&nbsp;"qso": 0.0651111901,<br/>
+							&nbsp;&nbsp;"star": 0.0019664618,<br/>
+							&nbsp;&nbsp;"resultado": "ok",<br/>
+							&nbsp;&nbsp;"id": 3<br/>
+							}
+						</figure>
+						
+						<br/>
+						<br/>
+						<br/>
+						
+						<b>Retroalimentación</b>
+						<p>
+							URL: {{url}}retroalimentacion<br/>
+							Método: POST<br/>
+							Formato: application/json
+						</p>
+						<p>Ejemplos:</p>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"id": 1,<br/>
+							&nbsp;&nbsp;"valor_real": "star"<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"resultado": "ok"<br/>
+							}
+						</figure>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"id": 2,<br/>
+							&nbsp;&nbsp;"valor_real": "qso"<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"resultado": "ok"<br/>
+							}
+						</figure>
+						<figure class="figure border border-secondary rounded w-100 p-2">
+							<i>Solicitud</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"id": 3,<br/>
+							&nbsp;&nbsp;"valor_real": "galaxy"<br/>
+							}<br/>
+							<br/>
+							<i>Respuesta</i>:<br/>
+							<br/>
+							{<br/>
+							&nbsp;&nbsp;"resultado": "ok"<br/>
+							}
+						</figure>
 					</div>
 				</div>
 			</div>
@@ -142,11 +310,30 @@
 				}
 				postData('/prediccion', data).then((data) => {
 					if(data["resultado"]=="ok"){
+						$('.valores_prediccion .id').html(data["id"]);
 						$('.valores_prediccion .galaxy').html(data["galaxy"]);
 						$('.valores_prediccion .qso').html(data["qso"]);
 						$('.valores_prediccion .star').html(data["star"]);
+						$('.resultado_retroalimentacion').html("");
 						$('.resultado').show();
 						$('.analizando').hide();
+						
+						$('input[name="id"]').val(data["id"]);
+						
+						clasificacion = "star";
+						if ( data["galaxy"] > data["qso"] && data["galaxy"] > data["star"]){
+							clasificacion = "galaxy";
+						}else if( data["qso"] > data["galaxy"] && data["qso"] > data["star"] ){
+							clasificacion = "qso";
+						}
+						$('select[name="valor_real"]').val(clasificacion).change();
+						
+						let hash = "#resultados_prediccion";
+						$('html, body').animate({
+							scrollTop: $(hash).offset().top
+						}, 800, function(){
+							window.location.hash = hash;
+						});
 					}else{
 						$('.resultado').hide();
 						$('.analizando').html("Ha sucedido un error, intentalo de nuevo").show();
@@ -164,6 +351,21 @@
 					body: JSON.stringify(data)
 				});
 				return response.json(); 
+			}
+			
+			function retroalimentar(){
+				let id = $('input[name="id"]').val();
+				let valor_real = $('select[name="valor_real"]').val();
+				let data = { id: id, valor_real: valor_real };
+				$('.resultado_retroalimentacion').html("Enviando...");
+				postData('/retroalimentacion', data).then((data) => {
+					if(data["resultado"]=="ok"){
+						$('.resultado_retroalimentacion').html("Datos guardados correctamente.");
+					}else{
+						$('.resultado_retroalimentacion').html("Ha sucedido un error, intentalo de nuevo.");
+					}
+					
+				});
 			}
 			
 		</script>

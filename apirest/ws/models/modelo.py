@@ -11,9 +11,9 @@ class Prediccion(models.Model):
     z = models.DecimalField(max_digits=30, decimal_places=23)
     redshift = models.DecimalField(max_digits=30, decimal_places=23)
     fecha_creacion = models.DateField(default=None, blank=True, null=True)
-    galaxy = models.DecimalField(max_digits=4, decimal_places=3, default=None, blank=True, null=True)
-    qso = models.DecimalField(max_digits=4, decimal_places=3, default=None, blank=True, null=True)
-    star = models.DecimalField(max_digits=4, decimal_places=3, default=None, blank=True, null=True)
+    galaxy = models.DecimalField(max_digits=30, decimal_places=23, default=None, blank=True, null=True)
+    qso = models.DecimalField(max_digits=30, decimal_places=23, default=None, blank=True, null=True)
+    star = models.DecimalField(max_digits=30, decimal_places=23, default=None, blank=True, null=True)
     valor_real = models.CharField(max_length=20, default=None, blank=True, null=True)
     fecha_actualizacion = models.DateField(default=None, blank=True, null=True)
 	
