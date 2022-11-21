@@ -8,8 +8,7 @@ class ClasificacionMultiple:
 
 	def __init__(self):
 		module_dir = os.path.dirname(__file__)  
-		file_path = os.path.join(module_dir, 'data.txt')   #full path to tex
-	
+		
 		#Carga de estadísticos
 		mean = pd.read_csv(os.path.join(module_dir, './files/mean.csv'), index_col=False, header=None)
 		std = pd.read_csv(os.path.join(module_dir, './files/std.csv'), index_col=False, header=None)
@@ -40,12 +39,12 @@ class ClasificacionMultiple:
 			prediccion = self.new_model.predict(data_norm)
 
 			pd_prediccion = pd.DataFrame(prediccion, columns=["galaxy", "qso", "star"])
-			pd_prediccion["resultado"]="OK"
+			pd_prediccion["resultado"]="ok"
 			resultado = pd_prediccion.to_json(orient="records")
 			return json.loads(resultado)[0]
 		except Exception as e:
 			resultado = pd.DataFrame([{
-				"resultado": "NOT OK", 
+				"resultado": "not ok", 
 				"error": str(e)
 			}]).to_json(orient="records")
 			return json.loads(resultado)[0]

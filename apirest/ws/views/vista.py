@@ -6,6 +6,18 @@ from rest_framework import status
 
 from ws.serializers import serializador
 from rest_framework.decorators import api_view
+import os
+import json
+import pandas as pd
+
+@api_view(['GET'])
+def index(request):
+    if request.method == 'GET':
+        module_dir = os.path.dirname(__file__)  
+        xdemo = pd.read_csv(os.path.join(module_dir, '../library/files/X_demo.csv')).reset_index(drop=True)[0:10].to_dict(orient="records")
+        ydemo = pd.read_csv(os.path.join(module_dir, '../library/files/y_demo.csv')).reset_index(drop=True)[0:10].to_json(orient="records")
+        params = {"xdemo": xdemo, "ydemo": ydemo, "cantidad": 100}
+        return render(request,"index.html",params)
 
 @api_view(['POST'])
 def prediccion(request):
@@ -23,6 +35,6 @@ def retroalimentacion(request):
         ws_data = JSONParser().parse(request)
         ws_serializer = serializador.retroalimentacion(data=ws_data)
         if ws_serializer.is_valid():
-            ws_serializer.create(ws_serializer.data)
-            return JsonResponse(ws_serializer.errors, status=status.HTTP_200_OK)
+            resultado = ws_serializer.create(ws_serializer.data)
+            return JsonResponse(resultado, status=status.HTTP_200_OK)
         return JsonResponse(ws_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
